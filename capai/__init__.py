@@ -30,4 +30,4 @@ def getSql_like(query, sqlUri, outputFile=None):
         sql = sql.replace(i, "%" + i + "%")
         sql = sql.replace(i, i.replace(' ', '%'))
 
-    return sql"""
+    return sql
