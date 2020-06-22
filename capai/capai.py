@@ -24,7 +24,7 @@ class CapAI:
         if color == False:
             without_color()
 
-        database = Database()
+        database = Database(database_path)
         self.stopwordsFilter = None
 
         if thesaurus_path:
@@ -35,8 +35,9 @@ class CapAI:
         if stopwords_path:
             self.stopwordsFilter = StopwordFilter()
             self.stopwordsFilter.load(stopwords_path)
-
-        database.load(database_path)
+          
+        
+        database.load()
         # database.print_me()
 
         config = LangConfig()
