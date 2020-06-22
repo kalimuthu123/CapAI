@@ -10,7 +10,7 @@ class Database:
         self.tables = []
         self.thesaurus_object = None
         self.engine = create_engine(uri)
-        self.inspector = inspect(engine)
+        self.inspector = inspect(self.engine)
 
 
     def set_thesaurus(self, thesaurus):
