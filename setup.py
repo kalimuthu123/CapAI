@@ -13,6 +13,6 @@ setup(
     long_description=open('README.md').read(),
     setup_requires=['pytest'],
     package_data={
-        '': ['stopwords/*.txt', 'lang/*.csv', 'thesaurus/*.dat'],
+        '': ['stopwords/*.txt', 'lang_store/*.csv', 'thesaurus_store/*.dat'],
     },
 )
