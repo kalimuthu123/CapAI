@@ -6,8 +6,6 @@ setup(
     version='0.1',
     license='MIT',
     author='Kalimuthu',
-    description = 'This is a wrapper based on nlp and sqlalchemy',
-    author = 'Kalimuthu',
     author_email='1995kalimuthu@gmail.com,kali@svayamlabs.com',
     url = 'https://github.com/kalimuthu123/CapAi',
     description='Convert Natural Language to SQL queries',
