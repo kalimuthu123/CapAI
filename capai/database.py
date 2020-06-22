@@ -6,14 +6,11 @@ from .table import Table
 
 class Database:
     
-    def __init__(self):
+    def __init__(self,uri):
         self.tables = []
         self.thesaurus_object = None
-        
-    def db_connect(self,uri):
-        engine = create_engine(uri)
-        inspector = inspect(engine)
-        return inspector
+        self.engine = create_engine(uri)
+        self.inspector = inspect(self.engine)
 
     def set_thesaurus(self, thesaurus):
         self.thesaurus_object = thesaurus
@@ -78,20 +75,21 @@ class Database:
     def add_table(self, table):
         self.tables.append(table)
 
-    def load(self, path):
-        inspector=self.db_connect(path)
-        for table_name in inspector.get_table_names(schema="blk_superset"):
-            table=self.create_table(inspector,table_name)
+    def load(self):
+        inspector=self.inspector 
+        for table_name in inspector.get_table_names():
+            table=self.create_table(table_name)
             self.add_table(table)
-            self.alter_table(inspector,table_name)
+            self.alter_table(table_name)
 
   
-    def create_table(self,inspector, table_name):
+    def create_table(self, table_name):
         table = Table()
+        inspector=self.inspector
         table.name = table_name
         if self.thesaurus_object is not None:
             table.equivalences = self.thesaurus_object.get_synonyms_of_a_word(table_name)
-        for column_name in inspector.get_columns(table_name, schema="superset"):
+        for column_name in inspector.get_columns(table_name):
             if self.thesaurus_object is not None:
                 equivalences = self.thesaurus_object.get_synonyms_of_a_word(column_name)
             else:
@@ -99,11 +97,12 @@ class Database:
             table.add_column(column_name["name"], column_name["type"], equivalences)
         return table
 
-    def alter_table(self, inspector , table_name):
+    def alter_table(self, table_name):
+        inspector=self.inspector
         table = self.get_table_by_name(table_name)
-        for column in inspector.get_primary_keys(table_name, schema="superset"):
+        for column in inspector.get_primary_keys(table_name):
             table.add_primary_key(column)
-        for column in inspector.get_foreign_keys(table_name, schema="superset"):
+        for column in inspector.get_foreign_keys(table_name):
             table.add_foreign_key(column["constrained_columns"][0],column["referred_table"], column["referred_columns"][0])
 
     def print_me(self):
