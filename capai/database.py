@@ -99,6 +99,7 @@ class Database:
         return table
 
     def alter_table(self,table_name):
+        inspector=self.inspector 
         table = self.get_table_by_name(table_name)
         for column in inspector.get_primary_keys(table_name):
             table.add_primary_key(column)
