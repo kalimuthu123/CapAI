@@ -78,7 +78,7 @@ class Database:
 
     def load(self, path):
         inspector=self.inspector 
-        for table_name in inspector.get_table_names(schema="blk_superset"):
+        for table_name in inspector.get_table_names():
             table=self.create_table(table_name)
             self.add_table(table)
             self.alter_table(table_name)
