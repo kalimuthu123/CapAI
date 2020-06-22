@@ -1,16 +1,17 @@
 from .capai import main as __main__
 import re
 import os
+from .settings import DEBUG
 
 def getSql(query, sqlUri, outputFile=None):
     # unit test
-    # args = ['-d', 'capai/emp_dump.sql', '-l', 'capai/lang_store/english.csv', '-i', query, '-j', 'capai/output.json','-x']
-    # args = ['-d', 'capai/emp_dump.sql', 'capai/lang_store/english.csv', '-i', query, '-j', 'capai/output.json']
-    # args = ['-d', 'capai/timesheet.sql', '-l', 'capai/lang_store/english.csv', '-i', query, '-j', 'capai/output.json']
+    # args = ['-d', 'capai/emp_dump.sql', '-l', 'capai/lang/english.csv', '-i', query, '-j', 'capai/output.json','-x']
+    # args = ['-d', 'capai/emp_dump.sql', 'capai/lang/english.csv', '-i', query, '-j', 'capai/output.json']
+    # args = ['-d', 'capai/timesheet.sql', '-l', 'capai/lang/english.csv', '-i', query, '-j', 'capai/output.json']
 
     args = ['-d', sqlUri,
-            '-l', os.path.dirname(os.path.abspath(__file__)
-                                  ) + '/lang_store/english.csv',
+            #'-l', os.path.dirname(os.path.abspath(__file__)
+             #                     ) + '/lang/english.csv',
             '-i', query,
             '-j', outputFile]
 
