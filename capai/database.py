@@ -76,7 +76,7 @@ class Database:
     def add_table(self, table):
         self.tables.append(table)
 
-    def load(self, path):
+    def load(self):
         inspector=self.inspector 
         for table_name in inspector.get_table_names():
             table=self.create_table(table_name)
