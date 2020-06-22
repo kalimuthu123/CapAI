@@ -9,7 +9,7 @@ from .parser import Parser
 from .stopwordFilter import StopwordFilter
 from .thesaurus import Thesaurus
 from .constants import Color, without_color
-
+from .settings import DEBUG
 class CapAI:
     def __init__(
             self,
@@ -66,13 +66,13 @@ class CapAI:
             os.remove(filename)
 
 def print_help_message():
-    if settings.DEBUG :
+    if DEBUG :
         print ('\n')
         print ('Usage:')
-        print ('\tpython ln2sql.py -d <path> -l <path> -i <input-sentence> [-t <path>] [-j <path>]')
+        print ('\tpython capai.py -d <path> -l <path> -i <input-sentence> [-t <path>] [-j <path>]')
         print ('Parameters:')
         print ('\t-h\t\t\tprint this help message')
-        print ('\t-d <path>\t\tpath to SQL dump file')
+        print ('\t-d <path>\t\tpath to SQL schema')
         print ('\t-l <path>\t\tpath to language configuration file')
         print ('\t-i <input-sentence>\tinput sentence to parse')
         print ('\t-j <path>\t\tpath to JSON output file')
@@ -102,10 +102,10 @@ def main(argv):
         else:
             print_help_message()
             # sys.exit()
-            raise getopt.GetoptError('ln2sqlmodule : Invalid args received',None)
+            raise getopt.GetoptError('CapAI : Invalid args received',None)
     
     if (database_path is None) or (input_sentence is None) or (language_path is None):
-        raise getopt.GetoptError('ln2sqlmodule : Invalid args received',None)
+        raise getopt.GetoptError('CapAI : Invalid args received',None)
     else:
         if thesaurus_path is not None:
             thesaurus_path = str(thesaurus_path)
@@ -113,6 +113,6 @@ def main(argv):
             json_output_path = str(json_output_path)
 
     #try:
-    ln2sqlObj = ln2sql(str(database_path), str(input_sentence), str(language_path), thesaurus_path, json_output_path)
+    ln2sqlObj = CapAI(str(database_path), str(input_sentence), str(language_path), thesaurus_path, json_output_path)
     
     return ln2sqlObj.get_query(str(input_sentence))
