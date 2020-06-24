@@ -1,4 +1,4 @@
 Supported Languages :
 
-English
+English </br>
 French
